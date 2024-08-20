@@ -11,3 +11,77 @@ library(palmerpenguins)
 library(lubridate)
 ```
 
+starting off with a data wrangling refresher
+Refresher 1: Starting with the penguins dataset in the palmerpenguins package, write a single piped sequence in which you:
+
+Only include penguins at Biscoe and Dream islands
+Remove the year and sex variables
+Add a new column called body_mass_kg, with penguin mass converted from grams to kilograms
+Rename the island variable to location
+
+
+```{r}
+penguins1 <- penguins %>%
+  filter(island %in% c("Biscoe", "Dream")) %>%
+  select(!c(sex, year)) %>%
+  mutate(body_mass_kg = body_mass_g / 1000) %>%
+  rename(location = island)
+```
+
+Refresher 2: Staring with the penguins dataset in the palmerpenguins package, write a single piped sequence in which you:
+
+Limit to only Adelie penguins
+Remove any observations where flipper_length_mm is NA (hint: !is.na())
+Group the data by sex
+Find the mean (mean()), standard deviation (sd) and sample size (n) of flipper_length_mm for male and female Adelie penguins, returned in a nice summary table
+
+```{r}
+penguins2 <- penguins %>%
+  filter(species=="Adelie") %>%
+  filter(!is.na(flipper_length_mm)) %>%
+  group_by(sex) %>%
+  summarize("Mean" = mean(flipper_length_mm), "SD" = sd(flipper_length_mm), "Sample Size" = n())
+```
+
+moving on to more data wrangling!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
