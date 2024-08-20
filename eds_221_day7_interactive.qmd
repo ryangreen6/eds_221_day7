@@ -9,6 +9,7 @@ editor_options:
 library(tidyverse)
 library(palmerpenguins)
 library(lubridate)
+library(datapasta)
 ```
 
 starting off with a data wrangling refresher
@@ -44,28 +45,181 @@ penguins2 <- penguins %>%
 ```
 
 moving on to more data wrangling!
+the package datapasta allows you to copy a datatable to your clipboard and then paste it into R! Keep you cursor in a code chunk, copy a table into your clipboard, and go to Tools>Addins>Browse> Paste As Tribble
+
+```{r}
+animals <- tibble::tribble(
+  ~location,   ~species,  ~maturity,
+   "lagoon",   "bobcat",    "adult",
+    "bluff",   "coyote", "juvenile",
+    "creek",      "fox",    "adult",
+     "oaks", "squirrel", "juvenile",
+    "bluff",   "bobcat",    "adult"
+  )
+
+sites <- tibble::tribble(
+  ~location,      ~full_site_name, ~jurisdiction,
+    "beach",       "Goleta Beach",     "SB City",
+   "lagoon",        "UCSB Lagoon",        "UCSB",
+    "bluff",       "Ellwood Mesa",     "SB City",
+     "oaks", "Fremont Campground",        "USFS"
+  )
+
+full_join_example <- full_join(animals, sites)
+```
+
+```{r}
+left_join_example <- left_join(animals, sites)
+```
+
+```{r}
+right_join_example <- right_join(animals, sites)
+```
+
+```{r}
+inner_join_example <- inner_join(animals, sites)
+```
+
+```{r}
+semi_join_example <- semi_join(animals, sites)
+```
+
+```{r}
+anti_join_example <- anti_join(animals, sites)
+```
+
+
+##
+
+
+afternoon section.. data wrangling continued! working with dates, times, and strings.
+Stringr package, in the tidyverse, is designed to make working with strings as easy as possible. 
+
+```{r}
+my_date <- "03-05-1998"
+lubridate::mdy(my_date)
+
+my_date <- "11/7/2003"
+lubridate::mdy(my_date)
+
+my_date <- "08-Jun-1991"
+lubridate::dmy(my_date)
+
+my_date <- "19960518"
+lubridate::ymd(my_date)
+```
+
+```{r}
+time <- "2020-08-12 11:18"
+time <- lubridate::ymd_hm(time)
+
+class(time)
+```
+
+```{r}
+my_time <- lubridate::ymd_hms(time)
+week(my_time)
+
+minute(my_time)
+```
+
+```{r}
+Sys.time()
+```
+
+
+
+
+```{r}
+urchin_counts <- tribble(
+  ~date, ~species, ~size_mm,
+  "10/3/2020", "purple", 55,
+  "10/4/2020", "red", 48,
+  "11/17/2020", "red", 67
+)
+
+urchin_counts %>%
+  mutate(date=lubridate::mdy(date))
+
+```
+
+```{r}
+urchin_counts_ymd <- urchin_counts %>% 
+  mutate(date = lubridate::mdy(date)) %>% 
+  mutate(year = year(date),
+         month = month(date),
+         day = day(date))
+
+urchin_counts_ymd
+
+urchin_counts_ymd %>%
+  group_by(year) %>%
+  summarize(total=n())
+```
+
+```{r}
+day_1 <- lubridate::ymd("2020-01-06")
+day_2 <- lubridate::ymd("2020-05-18")
+day_3 <- lubridate::ymd("2024-08-19")
+
+time_interval <- interval(day_1, day_2)
+time_length(time_interval, "seconds")
+```
+
+
+
+
+##
+
+
+Now playing with strings and the Stringr package
+
+```{r}
+my_string <- "Teddy loves eating salmon and socks"
+
+my_string %>%
+  str_detect("love")
+my_string %>%
+  str_detect("pup")
+```
+
+```{r}
+my_string <- c("Burrito", "Fish Taco", "Taco Salad")
+
+my_string %>%
+  str_detect("Fish")
+
+gonk <- starwars %>%
+  filter(str_detect(name, "Skywalker"))
+
+walkers <- starwars %>%
+  mutate(name=str_replace(name,
+                          pattern= "Sky",
+                          replacement=" ")) # bruh
+
+
+```
+
+```{r}
+feedback <- c("I ate     some      nachos", "Wednesday morning    ")
+
+str_squish(feedback)
+
+str_trim(feedback)
+
+str_to_lower(feedback)
+
+str_to_upper(feedback)
+
+str_to_title(feedback)
+
+str_count(feedback, pattern="nachos")
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
 

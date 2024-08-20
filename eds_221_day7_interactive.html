@@ -111,7 +111,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datapasta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>starting off with a data wrangling refresher Refresher 1: Starting with the penguins dataset in the palmerpenguins package, write a single piped sequence in which you:</p>
 <p>Only include penguins at Biscoe and Dream islands Remove the year and sex variables Add a new column called body_mass_kg, with penguin mass converted from grams to kilograms Rename the island variable to location</p>
@@ -131,7 +132,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="st">"Mean"</span> <span class="ot">=</span> <span class="fu">mean</span>(flipper_length_mm), <span class="st">"SD"</span> <span class="ot">=</span> <span class="fu">sd</span>(flipper_length_mm), <span class="st">"Sample Size"</span> <span class="ot">=</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>moving on to more data wrangling!</p>
+<p>moving on to more data wrangling! the package datapasta allows you to copy a datatable to your clipboard and then paste it into R! Keep you cursor in a code chunk, copy a table into your clipboard, and go to Tools&gt;Addins&gt;Browse&gt; Paste As Tribble</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>animals <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>location,   <span class="sc">~</span>species,  <span class="sc">~</span>maturity,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>   <span class="st">"lagoon"</span>,   <span class="st">"bobcat"</span>,    <span class="st">"adult"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bluff"</span>,   <span class="st">"coyote"</span>, <span class="st">"juvenile"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"creek"</span>,      <span class="st">"fox"</span>,    <span class="st">"adult"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>     <span class="st">"oaks"</span>, <span class="st">"squirrel"</span>, <span class="st">"juvenile"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bluff"</span>,   <span class="st">"bobcat"</span>,    <span class="st">"adult"</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>sites <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>location,      <span class="sc">~</span>full_site_name, <span class="sc">~</span>jurisdiction,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"beach"</span>,       <span class="st">"Goleta Beach"</span>,     <span class="st">"SB City"</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>   <span class="st">"lagoon"</span>,        <span class="st">"UCSB Lagoon"</span>,        <span class="st">"UCSB"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bluff"</span>,       <span class="st">"Ellwood Mesa"</span>,     <span class="st">"SB City"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>     <span class="st">"oaks"</span>, <span class="st">"Fremont Campground"</span>,        <span class="st">"USFS"</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 </main>
 <!-- /main column -->
