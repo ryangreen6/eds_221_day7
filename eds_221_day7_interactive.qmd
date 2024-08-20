@@ -1,0 +1,13 @@
+---
+title: "eds_221_day7_interactive"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(lubridate)
+```
+
